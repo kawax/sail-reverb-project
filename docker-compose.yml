@@ -43,6 +43,20 @@ services:
         depends_on:
             - mysql
             - redis
+    pulse:
+        image: sail-8.3/app
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+        volumes:
+            - '.:/var/www/html'
+        command: php artisan pulse:check
+        restart: always
+        networks:
+            - sail
+        depends_on:
+            - mysql
+            - redis
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
